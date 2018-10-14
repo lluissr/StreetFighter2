@@ -10,7 +10,7 @@
 ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 {
 	position.x = 100;
-	position.y = 216;
+	position.y = 104;
 
 	// idle animation (arcade sprite sheet)
 	idle.frames.push_back({7, 14, 60, 90});
@@ -30,6 +30,13 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	backward.speed = 0.1f;
 
 	// TODO 8: setup the walk forward animation from ryu4.png
+	forward.frames.push_back({ 9, 135, 52, 83 });
+	forward.frames.push_back({ 77, 131, 59, 87 });
+	forward.frames.push_back({ 161, 127, 57, 91 });
+	forward.frames.push_back({ 258, 127, 57, 91 });
+	forward.frames.push_back({ 351, 127, 58, 91 });
+	forward.frames.push_back({ 431, 129, 57, 89 });
+	forward.speed = 0.2f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -57,12 +64,25 @@ bool ModulePlayer::CleanUp()
 	return true;
 }
 
+
 // Update
 update_status ModulePlayer::Update()
 {
 	// TODO 9: Draw the player with its animation
 	// make sure to detect player movement and change its
 	// position while cycling the animation(check Animation.h)
+	
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		App->renderer->Blit(graphics, position.x += 1, position.y, &(forward.GetCurrentFrame()), 1.0f);
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+		App->renderer->Blit(graphics, position.x -= 1, position.y, &(backward.GetCurrentFrame()), 1.0f);
+	}
+	else 
+	{
+		App->renderer->Blit(graphics, position.x, position.y, &(idle.GetCurrentFrame()), 1.0f);
+	}
 
 	return UPDATE_CONTINUE;
 }

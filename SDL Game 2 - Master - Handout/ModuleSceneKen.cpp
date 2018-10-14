@@ -24,7 +24,7 @@ ModuleSceneKen::ModuleSceneKen(bool start_enabled) : Module(start_enabled)
 	ship.x = 8;
 	ship.y = 24;
 	ship.w = 530;
-	ship.h = 200;
+	ship.h = 180;
 
 	// Background / sky
 	background.x = 72;
@@ -56,6 +56,7 @@ bool ModuleSceneKen::Start()
 	graphics = App->textures->Load("ken_stage.png");
 
 	// TODO 7: Enable the player module
+	App->player->Enable();
 	// TODO 0: trigger background music
 	App->audio->PlayMusic("ken.ogg");
 
@@ -77,6 +78,8 @@ bool ModuleSceneKen::CleanUp()
 update_status ModuleSceneKen::Update()
 {
 	// TODO 5: make sure the ship goes up and down
+
+	
 
 	// Draw everything --------------------------------------
 	// TODO 1: Tweak the movement speed of the sea&sky + flag to your taste
