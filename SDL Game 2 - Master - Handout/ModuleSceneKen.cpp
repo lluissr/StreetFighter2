@@ -43,6 +43,7 @@ ModuleSceneKen::ModuleSceneKen(bool start_enabled) : Module(start_enabled)
 	girl.frames.push_back({ 624, 16, 31, 55 });
 	girl.frames.push_back({ 624, 80, 31, 55 });
 	girl.frames.push_back({ 624, 144, 31, 55 });
+	girl.frames.push_back({ 624, 80, 31, 55 });
 	girl.speed = 0.08f;
 }
 
@@ -79,8 +80,7 @@ bool ModuleSceneKen::CleanUp()
 update_status ModuleSceneKen::Update()
 {
 	// TODO 5: make sure the ship goes up and down
-
-	
+	//UpdateShipPosition();
 
 	// Draw everything --------------------------------------
 	// TODO 1: Tweak the movement speed of the sea&sky + flag to your taste
@@ -88,7 +88,7 @@ update_status ModuleSceneKen::Update()
 	App->renderer->Blit(graphics, 560, 8, &(flag.GetCurrentFrame()), 1.5f); // flag animation
 	
 	// TODO 3: Draw the ship. Be sure to tweak the speed.
-	App->renderer->Blit(graphics, 0, 0, &ship, 1.5f); // ship
+	App->renderer->Blit(graphics, 0, shipPosition, &ship, 1.5f); // ship
 
 	// TODO 6: Draw the girl. Make sure it follows the ship movement!
 	App->renderer->Blit(graphics, 191, 104, &(girl.GetCurrentFrame()), 1.5f);//girl
@@ -107,4 +107,23 @@ update_status ModuleSceneKen::Update()
 	}
 	
 	return UPDATE_CONTINUE;
+}
+
+void ModuleSceneKen::UpdateShipPosition()
+{
+	if (shipGoingUp)
+	{
+		--shipPosition;
+		if (shipPosition == -10)
+		{
+			shipGoingUp = false;
+		}
+	}
+	else {
+		++shipPosition;
+		if (shipPosition == 0)
+		{
+			shipGoingUp = true;
+		}
+	}
 }

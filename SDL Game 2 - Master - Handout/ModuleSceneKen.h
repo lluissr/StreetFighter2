@@ -9,6 +9,12 @@ struct SDL_Texture;
 
 class ModuleSceneKen : public Module
 {
+private:
+	int shipPosition = 0;
+	bool shipGoingUp = true;
+
+	void UpdateShipPosition();
+
 public:
 	ModuleSceneKen( bool start_enabled = true);
 	~ModuleSceneKen();
