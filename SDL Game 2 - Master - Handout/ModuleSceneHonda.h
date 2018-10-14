@@ -20,8 +20,11 @@ public:
 public:
 
 	SDL_Texture* graphics = nullptr;
-	//SDL_Rect ground;
-	//SDL_Rect background;
+	SDL_Rect ground;
+	SDL_Rect background;
+	SDL_Rect ceiling;
+	SDL_Rect bath;
+	SDL_Rect bucket;
 };
 
 #endif // __MODULESCENEHONDA_H__
